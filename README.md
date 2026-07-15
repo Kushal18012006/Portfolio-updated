@@ -10,6 +10,12 @@ A world-class, premium, production-ready personal portfolio website built with m
 
 ---
 
+## ⚡ Deployment
+
+https://portfolio-updated-gules-six.vercel.app/
+
+---
+
 ## ✨ Features
 1. **Full-Screen Interactive Hero**: Magnetic buttons, typing animation, and a custom 3D hover-tilt glassmorphism container for profile picture.
 2. **High-Performance Canvas Background**: Interactive floating stars/particles connecting dynamically, mouse-reactive glow, and smooth-drifting blurred aurora blobs.
@@ -92,22 +98,6 @@ updated portfolio/
    ```bash
    npm run build
    ```
-
----
-
-## ⚡ Deployment
-
-### Deploy to Vercel
-1. Push your code to GitHub.
-2. Go to [Vercel](https://vercel.com) and click **Add New Project**.
-3. Select this repository and click **Deploy**.
-4. The configurations are pre-wired. No environment variables are required unless integrating EmailJS/Resend.
-
----
-
-## 📨 Contact Form Integration
-
-To receive form submissions in your mailbox, open [components/Contact.tsx](file:///c:/Users/GAMIN/OneDrive/Desktop/projects/portfolio/updated%20portfolio/components/Contact.tsx) and look for the **INTEGRATION INSTRUCTIONS** comment box in `handleSubmit()`. You can hook up EmailJS or Resend API instantly!
 
 ---
 
