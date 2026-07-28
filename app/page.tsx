@@ -6,7 +6,6 @@ import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
 import Achievements from "@/components/Achievements";
 import Certifications from "@/components/Certifications";
-import CodingJourney from "@/components/CodingJourney";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -21,7 +20,6 @@ export default function Home() {
       <Experience />
       <Achievements />
       <Certifications />
-      <CodingJourney />
       <Contact />
       
       {/* Footer is placed at the end of the page body */}

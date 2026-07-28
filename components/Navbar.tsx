@@ -12,7 +12,6 @@ const navItems = [
   { name: "Experience", href: "#experience" },
   { name: "Achievements", href: "#achievements" },
   { name: "Certifications", href: "#certifications" },
-  { name: "Coding Journey", href: "#journey" },
   { name: "Contact", href: "#contact" },
 ];
 

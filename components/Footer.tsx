@@ -31,7 +31,6 @@ export default function Footer() {
   const secondaryLinks = [
     { name: "Achievements", href: "#achievements" },
     { name: "Certifications", href: "#certifications" },
-    { name: "Journey", href: "#journey" },
     { name: "Contact", href: "#contact" },
   ];
 
