@@ -75,42 +75,24 @@ export default function Contact() {
     setStatus("sending");
 
     try {
-      /* =========================================================================
-       * INTEGRATION INSTRUCTIONS (EMAILJS / RESEND)
-       * =========================================================================
-       * 
-       * OPTION A: Integrating with EmailJS (Client-Side, Recommended for Static Sites)
-       * 1. Run in console: npm install @emailjs/browser
-       * 2. Import it: import emailjs from '@emailjs/browser';
-       * 3. Replace the mock timeout below with this code:
-       * 
-       *    await emailjs.send(
-       *      "YOUR_SERVICE_ID",     // <-- REPLACE WITH YOUR SERVICE ID
-       *      "YOUR_TEMPLATE_ID",    // <-- REPLACE WITH YOUR TEMPLATE ID
-       *      {
-       *        from_name: formData.name,
-       *        reply_to: formData.email,
-       *        subject: formData.subject,
-       *        message: formData.message,
-       *      },
-       *      "YOUR_PUBLIC_KEY"      // <-- REPLACE WITH YOUR PUBLIC KEY
-       *    );
-       * 
-       * OPTION B: Integrating with Resend (Server-Side Next.js Route Handler)
-       * 1. Create a file: app/api/send/route.ts
-       * 2. Post data to '/api/send' using fetch:
-       * 
-       *    const res = await fetch('/api/send', {
-       *      method: 'POST',
-       *      headers: { 'Content-Type': 'application/json' },
-       *      body: JSON.stringify(formData),
-       *    });
-       *    if (!res.ok) throw new Error();
-       * 
-       * ========================================================================= */
+      const response = await fetch("https://formsubmit.co/ajax/kushal.tripathi2006@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _subject: `[Portfolio Message] ${formData.subject}`,
+          message: formData.message,
+          _template: "table",
+        }),
+      });
 
-      // Mock API call to demonstrate UI transitions
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
       
       // Trigger canvas-confetti on successful submit!
       confetti({
@@ -156,20 +138,21 @@ export default function Contact() {
           <div className="w-12 h-[2px] bg-gradient-to-r from-accent-purple to-accent-cyan mx-auto mt-4" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto items-start">
-          {/* Left Panel: Info Cards */}
+        {/* Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
+          {/* Left Info Panel */}
           <div className="lg:col-span-5 space-y-6">
-            <h3 className="text-xl font-bold font-sora text-slate-200">
+            <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">
               Let's build something beautiful together.
             </h3>
             <p className="text-sm text-slate-400 font-sans leading-relaxed">
               If you are looking for a dedicated software engineer, or simply want to connect, feel free to drop a message!
             </p>
 
-            <div className="space-y-4 pt-4">
-              {/* Email */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl glassmorphism border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 border border-white/10 text-accent-cyan shadow-inner">
+            {/* Info Cards */}
+            <div className="space-y-3 pt-2">
+              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
@@ -180,22 +163,20 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Location */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl glassmorphism border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 border border-white/10 text-accent-cyan shadow-inner">
+              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Location</div>
-                  <span className="text-xs font-bold text-white font-sans">
+                  <div className="text-xs font-bold text-white font-mono">
                     Mathura, Uttar Pradesh, India
-                  </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Resume */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl glassmorphism border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 border border-white/10 text-accent-cyan shadow-inner">
+              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
                   <Download className="w-5 h-5" />
                 </div>
                 <div>
@@ -214,7 +195,7 @@ export default function Contact() {
             {/* Socials row */}
             <div className="flex gap-3 pt-2">
               <a
-                href="https://github.com"
+                href="https://github.com/Kushal18012006"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-2.5 rounded-xl glassmorphism text-slate-400 hover:text-white flex items-center justify-center gap-2 text-xs font-mono tracking-wider transition-colors"
@@ -222,7 +203,7 @@ export default function Contact() {
                 <GithubIcon className="w-4 h-4" /> GITHUB
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-2.5 rounded-xl glassmorphism text-slate-400 hover:text-white flex items-center justify-center gap-2 text-xs font-mono tracking-wider transition-colors"

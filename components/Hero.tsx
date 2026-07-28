@@ -195,7 +195,7 @@ export default function Hero() {
             className="flex gap-4 mt-2 items-center"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/Kushal18012006"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2.5 rounded-lg glassmorphism text-slate-400 hover:text-accent-cyan transition-colors"
@@ -204,7 +204,7 @@ export default function Hero() {
               <GithubIcon className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2.5 rounded-lg glassmorphism text-slate-400 hover:text-accent-cyan transition-colors"
