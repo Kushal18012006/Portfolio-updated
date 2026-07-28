@@ -21,12 +21,11 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Kushal Tripathi | Software Developer | Java & Frontend Developer",
-  description: "Personal portfolio of Kushal Tripathi, a Computer Science undergraduate passionate about Software Development, Java, DSA, and building beautiful, responsive, and scalable web applications.",
+  title: "Kushal Tripathi | Software Developer | Frontend Developer",
+  description: "Personal portfolio of Kushal Tripathi, a Computer Science undergraduate passionate about Software Development, DSA, and building beautiful, responsive, and scalable web applications.",
   keywords: [
     "Kushal Tripathi",
     "Software Developer",
-    "Java Developer",
     "Frontend Developer",
     "DSA Enthusiast",
     "Mathura",
