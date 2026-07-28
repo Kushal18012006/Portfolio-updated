@@ -21,7 +21,6 @@ const LinkedinIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
 
 const words = [
   "Software Developer",
-  "Java Developer",
   "Frontend Developer",
   "Problem Solver",
   "DSA Enthusiast",
