@@ -1,198 +1,206 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  alpha: number;
-}
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 export default function CanvasBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: -1000, y: -1000 });
-  const [isLightMode, setIsLightMode] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Track light/dark mode changes
-    const checkTheme = () => {
-      setIsLightMode(document.documentElement.classList.contains("light"));
-    };
+    const container = containerRef.current;
+    if (!container) return;
 
-    checkTheme();
-    
-    // Listen to theme toggle changes via MutationObserver
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
+    // CONFIG
+    const isMobile = window.innerWidth < 768;
+    const COUNT = isMobile ? 6000 : 14000;
+    const SPEED_MULT = 1;
+    const AUTO_SPIN = true;
+
+    // SCENE & CAMERA
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x02040a, 0.008);
+
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      2000
+    );
+    camera.position.set(0, 0, 110);
+
+    // RENDERER
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: "high-performance",
+      alpha: true,
     });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0); // Transparent background to blend with CSS aurora blobs
+    container.appendChild(renderer.domElement);
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    // ORBIT CONTROLS
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = AUTO_SPIN;
+    controls.autoRotateSpeed = 1.5;
+    controls.enableZoom = false; // Disable zoom to prevent background scroll interference
+    controls.enablePan = false;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    // POST PROCESSING (BLOOM)
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      1.5,
+      0.4,
+      0.85
+    );
+    bloomPass.strength = 1.6;
+    bloomPass.radius = 0.45;
+    bloomPass.threshold = 0.05;
+    composer.addPass(bloomPass);
 
+    // SWARM OBJECTS & GEOMETRY
+    const dummy = new THREE.Object3D();
+    const color = new THREE.Color();
+    const target = new THREE.Vector3();
+
+    const geometry = new THREE.TetrahedronGeometry(0.28);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+    const instancedMesh = new THREE.InstancedMesh(geometry, material, COUNT);
+    instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(instancedMesh);
+
+    // DATA ARRAYS
+    const positions: THREE.Vector3[] = [];
+    for (let i = 0; i < COUNT; i++) {
+      positions.push(
+        new THREE.Vector3(
+          (Math.random() - 0.5) * 100,
+          (Math.random() - 0.5) * 100,
+          (Math.random() - 0.5) * 100
+        )
+      );
+      instancedMesh.setColorAt(i, color.setHex(0x00ff88));
+    }
+
+    const PARAMS = { speed: 0.4, chaos: 20, coreSize: 10 };
+    const clock = new THREE.Clock();
     let animationFrameId: number;
-    let particles: Particle[] = [];
-    const particleCount = 60;
-    const connectionDistance = 120;
-    const mouseConnectionDistance = 160;
 
-    const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.scale(dpr, dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      initParticles();
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+
+      const time = clock.getElapsedTime() * SPEED_MULT;
+
+      controls.update();
+
+      const count = COUNT;
+      const goldenRatio = (1.0 + Math.sqrt(5.0)) / 2.0;
+
+      for (let i = 0; i < COUNT; i++) {
+        const speed = PARAMS.speed;
+        const chaos = PARAMS.chaos;
+        const coreSize = PARAMS.coreSize;
+
+        // 1. Progression towards the core
+        const norm = i / count;
+        const progress = (norm + time * speed * 0.2) % 1.0;
+        const easeProgress = Math.pow(progress, 1.5);
+
+        // 2. Spherical distribution (Fibonacci sphere)
+        const theta = (2.0 * Math.PI * i) / goldenRatio;
+        const phi = Math.acos(1.0 - 2.0 * norm);
+
+        // 3. Radius logic
+        const currentRadius = coreSize + 150.0 * (1.0 - easeProgress);
+
+        // 4. Noise/Chaos
+        const instability = Math.pow(1.0 - progress, 2.0);
+        const wobbleX = Math.sin(time * 2.0 + norm * 100.0) * chaos * instability;
+        const wobbleY = Math.cos(time * 1.5 + norm * 200.0) * chaos * instability;
+        const wobbleZ = Math.sin(time * 3.0 - norm * 300.0) * chaos * instability;
+
+        // 5. Position assembly
+        const sinPhi = Math.sin(phi);
+        const x = currentRadius * sinPhi * Math.cos(theta) + wobbleX;
+        const y = currentRadius * sinPhi * Math.sin(theta) + wobbleY;
+        const z = currentRadius * Math.cos(phi) + wobbleZ;
+
+        target.set(x, y, z);
+
+        // 6. Color mapping: Outer = Cool Data Blue (~0.55), Core = High-Energy Purple/Cyan (~0.75)
+        const hue = 0.55 + 0.25 * progress;
+        const saturation = 0.85 + 0.15 * progress;
+        const corePulse = progress > 0.95 ? Math.sin(time * 10.0) * 0.3 : 0.0;
+        const lightness = 0.2 + 0.6 * progress + corePulse;
+
+        color.setHSL(hue, saturation, Math.max(0.0, Math.min(1.0, lightness)));
+
+        // LERP & UPDATE
+        positions[i].lerp(target, 0.1);
+        dummy.position.copy(positions[i]);
+        dummy.updateMatrix();
+        instancedMesh.setMatrixAt(i, dummy.matrix);
+        instancedMesh.setColorAt(i, color);
+      }
+
+      if (instancedMesh.instanceMatrix) instancedMesh.instanceMatrix.needsUpdate = true;
+      if (instancedMesh.instanceColor) instancedMesh.instanceColor.needsUpdate = true;
+
+      composer.render();
     };
 
-    const initParticles = () => {
-      particles = [];
+    animate();
+
+    // RESIZE HANDLER
+    const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.5 + 0.2,
-        });
-      }
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height);
+      composer.setSize(width, height);
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    window.addEventListener("resize", handleResize);
 
-      // Colors based on theme
-      const particleColor = isLightMode ? "79, 70, 229" : "255, 255, 255";
-      const lineColor = isLightMode ? "79, 70, 229" : "99, 102, 241";
-      const mouseGlowColor = isLightMode 
-        ? "rgba(79, 70, 229, 0.04)" 
-        : "rgba(124, 58, 237, 0.08)";
-
-      // Draw mouse radial glow
-      if (mouseRef.current.x > -1000) {
-        const gradient = ctx.createRadialGradient(
-          mouseRef.current.x,
-          mouseRef.current.y,
-          0,
-          mouseRef.current.x,
-          mouseRef.current.y,
-          350
-        );
-        gradient.addColorStop(0, mouseGlowColor);
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, 350, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Update and draw particles
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Bounce or wrap edges
-        if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-        if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${particleColor}, ${p.alpha})`;
-        ctx.fill();
-      });
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < connectionDistance) {
-            const alpha = (1 - dist / connectionDistance) * 0.15;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${lineColor}, ${alpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-
-        // Mouse interaction connections
-        if (mouseRef.current.x > -1000) {
-          const dx = particles[i].x - mouseRef.current.x;
-          const dy = particles[i].y - mouseRef.current.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < mouseConnectionDistance) {
-            const alpha = (1 - dist / mouseConnectionDistance) * 0.25;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
-            ctx.strokeStyle = `rgba(${lineColor}, ${alpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(draw);
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-      };
-    };
-
-    const handleMouseLeave = () => {
-      mouseRef.current = {
-        x: -1000,
-        y: -1000,
-      };
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    draw();
-
+    // CLEANUP
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
+
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+      composer.dispose();
     };
-  }, [isLightMode]);
+  }, []);
 
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-      {/* HTML Ambient Blobs (Aurora effect) */}
-      <div className="absolute top-[10%] left-[20%] w-[35vw] h-[35vw] rounded-full bg-accent-indigo opacity-30 mix-blend-screen filter blur-[120px] animate-float" />
-      <div className="absolute top-[40%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-accent-purple opacity-20 mix-blend-screen filter blur-[150px] animate-pulse-slow" />
-      <div className="absolute bottom-[10%] left-[30%] w-[30vw] h-[30vw] rounded-full bg-accent-cyan opacity-25 mix-blend-screen filter blur-[100px] animate-float [animation-delay:2s]" />
+    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      {/* HTML Ambient Blobs (Aurora backdrop) */}
+      <div className="absolute top-[10%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-accent-indigo opacity-20 mix-blend-screen filter blur-[140px] animate-float" />
+      <div className="absolute top-[40%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-accent-purple opacity-20 mix-blend-screen filter blur-[160px] animate-pulse-slow" />
+      <div className="absolute bottom-[10%] left-[30%] w-[35vw] h-[35vw] rounded-full bg-accent-cyan opacity-20 mix-blend-screen filter blur-[120px] animate-float [animation-delay:2s]" />
 
-      {/* Grid Overlay */}
-      <div className="absolute inset-0 grid-overlay opacity-30" />
+      {/* Subtle Grid Overlay */}
+      <div className="absolute inset-0 grid-overlay opacity-20" />
 
-      {/* Canvas for Particles */}
-      <canvas ref={canvasRef} className="absolute inset-0 block" />
+      {/* 3D Three.js Swarm Container */}
+      <div ref={containerRef} className="absolute inset-0 block" />
     </div>
   );
 }
