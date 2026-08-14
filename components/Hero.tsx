@@ -225,9 +225,6 @@ export default function Hero() {
             transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
             className="relative group w-64 h-64 md:w-80 md:h-80"
           >
-            {/* Ambient Background Glow */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-accent-indigo via-accent-purple to-accent-cyan rounded-[2rem] filter blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-pulse-slow" />
-
             {/* Orbiting Floating Particles */}
             <div className="absolute top-2 left-2 w-3 h-3 bg-accent-cyan rounded-full filter blur-[1px] animate-float" style={{ animationDelay: "0s" }} />
             <div className="absolute bottom-8 right-2 w-2.5 h-2.5 bg-accent-purple rounded-full filter blur-[1px] animate-float" style={{ animationDelay: "2s" }} />
