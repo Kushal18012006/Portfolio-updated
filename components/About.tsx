@@ -106,7 +106,7 @@ export default function About() {
               </h3>
               
               {/* Timeline List */}
-              <div className="relative pl-8 ml-6 border-l border-white/10 space-y-8">
+              <div className="relative pl-12 ml-6 border-l border-white/10 space-y-8">
                 {timelineData.map((item, index) => (
                   <motion.div
                     key={index}
