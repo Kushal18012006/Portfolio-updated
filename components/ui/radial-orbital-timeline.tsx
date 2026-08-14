@@ -144,7 +144,7 @@ export default function RadialOrbitalTimeline({
   return (
     <div
       ref={containerRef}
-      className="relative w-full min-h-[550px] md:min-h-[620px] flex items-center justify-center select-none py-8 overflow-hidden"
+      className="relative w-full min-h-[420px] md:min-h-[460px] flex items-center justify-center select-none py-6 overflow-hidden"
     >
       {/* Background Radial Glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">

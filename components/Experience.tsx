@@ -86,12 +86,14 @@ export default function Experience() {
           <div className="w-12 h-[2px] bg-gradient-to-r from-accent-purple to-accent-cyan mx-auto mt-4" />
         </div>
 
-        {/* Interactive Radial Orbital Timeline */}
-        <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="w-full relative">
-            <RadialOrbitalTimeline items={simulationsData} />
-          </div>
-        </GlowingBorder>
+        {/* Interactive Radial Orbital Timeline (Compact & Centered as shown in reference image) */}
+        <div className="max-w-3xl mx-auto w-full">
+          <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
+            <div className="glassmorphism p-4 md:p-6 rounded-3xl border border-white/10 relative w-full flex items-center justify-center overflow-hidden">
+              <RadialOrbitalTimeline items={simulationsData} />
+            </div>
+          </GlowingBorder>
+        </div>
       </div>
     </section>
   );
