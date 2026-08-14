@@ -98,7 +98,7 @@ export default function About() {
 
         {/* Layout Grid wrapped with GlowingBorder */}
         <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="glassmorphism p-8 md:p-10 rounded-3xl border border-white/5 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Timeline Description (Left side) */}
             <div className="lg:col-span-7 space-y-8">
               <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">

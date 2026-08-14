@@ -180,7 +180,7 @@ export default function Certifications() {
 
         {/* Carousel Container wrapped with GlowingBorder */}
         <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="relative max-w-5xl mx-auto flex items-center justify-center gap-4 glassmorphism p-4 md:p-6 rounded-3xl border border-white/5">
+          <div className="relative max-w-5xl mx-auto flex items-center justify-center gap-4">
             {/* Left Arrow */}
             <button
               onClick={prevSlide}

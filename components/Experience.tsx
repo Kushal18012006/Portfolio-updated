@@ -88,7 +88,7 @@ export default function Experience() {
 
         {/* Interactive Radial Orbital Timeline */}
         <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="w-full relative glassmorphism rounded-3xl p-4 md:p-6 border border-white/5">
+          <div className="w-full relative">
             <RadialOrbitalTimeline items={simulationsData} />
           </div>
         </GlowingBorder>

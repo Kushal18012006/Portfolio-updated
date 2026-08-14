@@ -128,43 +128,41 @@ export default function Skills() {
 
         {/* Skill Cards Grid Container wrapped with GlowingBorder */}
         <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="glassmorphism p-6 md:p-8 rounded-3xl border border-white/5">
-            <motion.div
-              layout
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-            >
-              <AnimatePresence mode="wait">
-                {skillCategories[activeTab].skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    className="relative group p-6 rounded-2xl glassmorphism flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 border border-white/5 hover:border-accent-cyan/30 cursor-pointer"
+          <motion.div
+            layout
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+          >
+            <AnimatePresence mode="wait">
+              {skillCategories[activeTab].skills.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="relative group p-6 rounded-2xl glassmorphism flex flex-col items-center justify-center text-center gap-4 transition-all duration-300 border border-white/5 hover:border-accent-cyan/30 cursor-pointer"
+                >
+                  {/* Background Card Hover Glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-accent-indigo/10 to-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                  <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-accent-indigo to-accent-cyan opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-300 -z-10" />
+
+                  {/* Animated Skill Icon */}
+                  <motion.div 
+                    whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+                    className="p-4 rounded-xl bg-slate-900/60 border border-white/10 group-hover:border-accent-cyan/40 transition-colors shadow-inner"
                   >
-                    {/* Background Card Hover Glow */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-accent-indigo/10 to-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-                    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-accent-indigo to-accent-cyan opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-300 -z-10" />
-
-                    {/* Animated Skill Icon */}
-                    <motion.div 
-                      whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
-                      className="p-4 rounded-xl bg-slate-900/60 border border-white/10 group-hover:border-accent-cyan/40 transition-colors shadow-inner"
-                    >
-                      {skill.icon}
-                    </motion.div>
-
-                    {/* Skill Name */}
-                    <span className="text-sm font-semibold tracking-wide text-slate-200 group-hover:text-white transition-colors font-sora">
-                      {skill.name}
-                    </span>
+                    {skill.icon}
                   </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          </div>
+
+                  {/* Skill Name */}
+                  <span className="text-sm font-semibold tracking-wide text-slate-200 group-hover:text-white transition-colors font-sora">
+                    {skill.name}
+                  </span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </GlowingBorder>
       </div>
     </section>

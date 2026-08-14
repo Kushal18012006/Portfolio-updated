@@ -139,80 +139,80 @@ export default function Contact() {
           <div className="w-12 h-[2px] bg-gradient-to-r from-accent-purple to-accent-cyan mx-auto mt-4" />
         </div>
 
-        {/* Layout wrapped with GlowingBorder */}
-        <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto glassmorphism p-8 md:p-10 rounded-3xl border border-white/5">
-            {/* Left Info Panel */}
-            <div className="lg:col-span-5 space-y-6">
-              <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">
-                Let's build something beautiful together.
-              </h3>
-              <p className="text-sm text-slate-400 font-sans leading-relaxed">
-                If you are looking for a dedicated software engineer, or simply want to connect, feel free to drop a message!
-              </p>
+        {/* Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
+          {/* Left Info Panel */}
+          <div className="lg:col-span-5 space-y-6">
+            <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">
+              Let's build something beautiful together.
+            </h3>
+            <p className="text-sm text-slate-400 font-sans leading-relaxed">
+              If you are looking for a dedicated software engineer, or simply want to connect, feel free to drop a message!
+            </p>
 
-              {/* Info Cards */}
-              <div className="space-y-3 pt-2">
-                <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
-                  <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Email Me</div>
-                    <a href="mailto:kushal.tripathi2006@gmail.com" className="text-xs font-bold text-white hover:text-accent-cyan font-mono transition-colors">
-                      kushal.tripathi2006@gmail.com
-                    </a>
-                  </div>
+            {/* Info Cards */}
+            <div className="space-y-3 pt-2">
+              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
+                  <Mail className="w-5 h-5" />
                 </div>
-
-                <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
-                  <div className="p-3 rounded-xl bg-slate-900 text-accent-purple border border-white/10">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Location</div>
-                    <div className="text-xs font-bold text-white font-mono">India</div>
-                  </div>
+                <div>
+                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Email Me</div>
+                  <a href="mailto:kushal.tripathi2006@gmail.com" className="text-xs font-bold text-white hover:text-accent-cyan font-mono transition-colors">
+                    kushal.tripathi2006@gmail.com
+                  </a>
                 </div>
               </div>
 
-              {/* Social Connect & Resume download */}
-              <div className="pt-4 space-y-3">
-                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">Social Links</div>
-                <div className="flex gap-3">
-                  <a
-                    href="https://github.com/Kushal18012006"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-cyan transition-colors"
-                    aria-label="GitHub Profile"
-                  >
-                    <GithubIcon className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-purple transition-colors"
-                    aria-label="LinkedIn Profile"
-                  >
-                    <LinkedinIcon className="w-5 h-5" />
-                  </a>
+              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                <div className="p-3 rounded-xl bg-slate-900 text-accent-purple border border-white/10">
+                  <MapPin className="w-5 h-5" />
                 </div>
-
-                <a
-                  href="/assets/resume.pdf"
-                  download="Kushal_Tripathi_Resume.pdf"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-accent-cyan text-xs font-mono text-slate-300 hover:text-white transition-colors mt-2"
-                >
-                  <Download className="w-4 h-4 text-accent-cyan" /> DOWNLOAD RESUME
-                </a>
+                <div>
+                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Location</div>
+                  <div className="text-xs font-bold text-white font-mono">India</div>
+                </div>
               </div>
             </div>
 
-            {/* Right Contact Form */}
-            <div className="lg:col-span-7">
-              <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Social Connect & Resume download */}
+            <div className="pt-4 space-y-3">
+              <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">Social Links</div>
+              <div className="flex gap-3">
+                <a
+                  href="https://github.com/Kushal18012006"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-cyan transition-colors"
+                  aria-label="GitHub Profile"
+                >
+                  <GithubIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-purple transition-colors"
+                  aria-label="LinkedIn Profile"
+                >
+                  <LinkedinIcon className="w-5 h-5" />
+                </a>
+              </div>
+
+              <a
+                href="/assets/resume.pdf"
+                download="Kushal_Tripathi_Resume.pdf"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-accent-cyan text-xs font-mono text-slate-300 hover:text-white transition-colors mt-2"
+              >
+                <Download className="w-4 h-4 text-accent-cyan" /> DOWNLOAD RESUME
+              </a>
+            </div>
+          </div>
+
+          {/* Right Contact Form wrapped with GlowingBorder */}
+          <div className="lg:col-span-7">
+            <GlowingBorder borderRadius="rounded-3xl">
+              <form onSubmit={handleSubmit} className="glassmorphism p-8 rounded-3xl border border-white/5 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Name Input */}
                   <div className="space-y-1">
@@ -311,9 +311,9 @@ export default function Contact() {
                   </AnimatePresence>
                 </div>
               </form>
-            </div>
+            </GlowingBorder>
           </div>
-        </GlowingBorder>
+        </div>
       </div>
     </section>
   );
