@@ -29,6 +29,20 @@
   }
 }
 
+@keyframes glowing-border-anim {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-glowing-border {
+  background-size: 200% 200%;
+  animation: glowing-border-anim 8s ease infinite;
+}
+
 /* Custom global styles */
 :root {
   --background: #050816;

@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Download, Eye, Mail, ArrowDown } from "lucide-react";
 
+import GlowingBorder from "@/components/ui/glowing-border";
+
 const GithubIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -231,25 +233,27 @@ export default function Hero() {
             <div className="absolute bottom-8 right-2 w-2.5 h-2.5 bg-accent-purple rounded-full filter blur-[1px] animate-float" style={{ animationDelay: "2s" }} />
             <div className="absolute top-1/2 -right-4 w-2 h-2 bg-accent-indigo rounded-full filter blur-[1px] animate-float" style={{ animationDelay: "4s" }} />
 
-            {/* 3D Glass Card Container */}
-            <div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="relative w-full h-full glassmorphism rounded-[2rem] p-3 transition-all duration-200 ease-out shadow-[0_20px_50px_rgba(0,0,0,0.5)] cursor-pointer overflow-hidden flex items-center justify-center"
-            >
-              <div className="relative w-full h-full rounded-[1.6rem] overflow-hidden bg-slate-950 flex items-center justify-center">
-                {/* Subtle Grid overlay inside card */}
-                <div className="absolute inset-0 grid-overlay opacity-20 pointer-events-none" />
+            {/* 3D Glass Card Container with Glowing Border */}
+            <GlowingBorder borderRadius="rounded-[2rem]">
+              <div
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                className="relative w-full h-full glassmorphism rounded-[2rem] p-3 transition-all duration-200 ease-out shadow-[0_20px_50px_rgba(0,0,0,0.5)] cursor-pointer overflow-hidden flex items-center justify-center"
+              >
+                <div className="relative w-full h-full rounded-[1.6rem] overflow-hidden bg-slate-950 flex items-center justify-center">
+                  {/* Subtle Grid overlay inside card */}
+                  <div className="absolute inset-0 grid-overlay opacity-20 pointer-events-none" />
 
-                {/* Profile Image with zoom and soft animation */}
-                <img
-                  src="/assets/profile.png"
-                  alt="Kushal Tripathi"
-                  className="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110 pointer-events-none"
-                />
+                  {/* Profile Image with zoom and soft animation */}
+                  <img
+                    src="/assets/profile.png"
+                    alt="Kushal Tripathi"
+                    className="w-full h-full object-cover transform transition-transform duration-700 ease-out group-hover:scale-110 pointer-events-none"
+                  />
+                </div>
               </div>
-            </div>
+            </GlowingBorder>
           </motion.div>
         </div>
       </div>

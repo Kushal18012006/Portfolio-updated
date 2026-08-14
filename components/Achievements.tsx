@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Award, ShieldAlert, Sparkles } from "lucide-react";
+import GlowingBorder from "@/components/ui/glowing-border";
 
 interface Achievement {
   id: number;
@@ -63,78 +64,79 @@ export default function Achievements() {
         {/* Achievements Cards Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {achievements.map((ach, idx) => (
-            <motion.div
-              key={ach.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="relative group p-8 rounded-3xl glassmorphism border border-white/5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300"
-              style={{
-                boxShadow: `0 20px 40px -15px ${ach.glowColor}`,
-              }}
-            >
-              {/* Backlit glow effect */}
-              <div
-                className="absolute -top-16 -right-16 w-36 h-36 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-500 opacity-60"
+            <GlowingBorder key={ach.id} borderRadius="rounded-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                whileHover={{ y: -6 }}
+                className="relative group p-8 rounded-3xl glassmorphism border border-white/5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 h-full"
                 style={{
-                  background: `radial-gradient(circle, ${ach.glowColor.replace("0.15", "0.4")} 0%, transparent 70%)`,
+                  boxShadow: `0 20px 40px -15px ${ach.glowColor}`,
                 }}
-              />
-
-              <div className="flex flex-col gap-6 items-start">
-                {/* Trophy Graphic */}
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 4,
-                    ease: "easeInOut",
-                    delay: idx * 2,
+              >
+                {/* Backlit glow effect */}
+                <div
+                  className="absolute -top-16 -right-16 w-36 h-36 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-500 opacity-60"
+                  style={{
+                    background: `radial-gradient(circle, ${ach.glowColor.replace("0.15", "0.4")} 0%, transparent 70%)`,
                   }}
-                  className="p-4 rounded-2xl bg-white/5 border border-white/10 relative"
-                >
-                  {/* Decorative sparklers */}
-                  <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 animate-pulse" />
-                  
-                  {/* Custom Trophy SVG */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-10 h-10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      d="M6 9H4.5A2.5 2.5 0 012 6.5v0A2.5 2.5 0 014.5 4H6m12 5h1.5A2.5 2.5 0 0022 6.5v0A2.5 2.5 0 0019.5 4H18"
-                      className="stroke-amber-400"
-                    />
-                    <path
-                      d="M6 4v7c0 3.313 2.687 6 6 6s6-2.687 6-6V4H6z"
-                      className="stroke-amber-500 fill-amber-500/10"
-                    />
-                    <path d="M12 17v4M9 21h6" className="stroke-amber-600" strokeLinecap="round" />
-                  </svg>
-                </motion.div>
+                />
 
-                {/* Content */}
-                <div className="space-y-2">
-                  <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono tracking-wider text-accent-cyan font-medium">
-                    {ach.badge}
-                  </span>
-                  <h3 className="text-xl font-bold font-sora text-white tracking-tight mt-2">
-                    {ach.title}
-                  </h3>
-                  <h4 className="text-sm font-semibold font-mono text-slate-400">
-                    {ach.competition}
-                  </h4>
-                  <p className="text-sm text-slate-400 font-sans leading-relaxed pt-2">
-                    {ach.description}
-                  </p>
+                <div className="flex flex-col gap-6 items-start">
+                  {/* Trophy Graphic */}
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "easeInOut",
+                      delay: idx * 2,
+                    }}
+                    className="p-4 rounded-2xl bg-white/5 border border-white/10 relative"
+                  >
+                    {/* Decorative sparklers */}
+                    <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 animate-pulse" />
+                    
+                    {/* Custom Trophy SVG */}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-10 h-10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
+                      <path
+                        d="M6 9H4.5A2.5 2.5 0 012 6.5v0A2.5 2.5 0 014.5 4H6m12 5h1.5A2.5 2.5 0 0022 6.5v0A2.5 2.5 0 0019.5 4H18"
+                        className="stroke-amber-400"
+                      />
+                      <path
+                        d="M6 4v7c0 3.313 2.687 6 6 6s6-2.687 6-6V4H6z"
+                        className="stroke-amber-500 fill-amber-500/10"
+                      />
+                      <path d="M12 17v4M9 21h6" className="stroke-amber-600" strokeLinecap="round" />
+                    </svg>
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="space-y-2">
+                    <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono tracking-wider text-accent-cyan font-medium">
+                      {ach.badge}
+                    </span>
+                    <h3 className="text-xl font-bold font-sora text-white tracking-tight mt-2">
+                      {ach.title}
+                    </h3>
+                    <h4 className="text-sm font-semibold font-mono text-slate-400">
+                      {ach.competition}
+                    </h4>
+                    <p className="text-sm text-slate-400 font-sans leading-relaxed pt-2">
+                      {ach.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </GlowingBorder>
           ))}
         </div>
       </div>

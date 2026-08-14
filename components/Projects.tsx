@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ShieldCheck, Database, Award, ShoppingBag, Terminal as TermIcon } from "lucide-react";
+import GlowingBorder from "@/components/ui/glowing-border";
 
 const GithubIcon = ({ className = "w-3.5 h-3.5" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -326,78 +327,79 @@ export default function Projects() {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`group flex flex-col justify-between p-6 rounded-[2rem] glassmorphism border border-white/5 transition-all duration-500 cursor-pointer ${project.accent}`}
-            >
-              <div className="space-y-4">
-                {/* Visual Area (Interactive) */}
-                <div className="w-full h-44 rounded-2xl overflow-hidden bg-slate-900/50 p-2 flex items-center justify-center">
-                  {project.visual}
-                </div>
+            <GlowingBorder key={project.id} borderRadius="rounded-[2rem]">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className={`group flex flex-col justify-between p-6 rounded-[2rem] glassmorphism border border-white/5 transition-all duration-500 cursor-pointer h-full ${project.accent}`}
+              >
+                <div className="space-y-4">
+                  {/* Visual Area (Interactive) */}
+                  <div className="w-full h-44 rounded-2xl overflow-hidden bg-slate-900/50 p-2 flex items-center justify-center">
+                    {project.visual}
+                  </div>
 
-                {/* Subtitle & Title */}
-                <div>
-                  <span className="text-[10px] font-mono tracking-widest text-accent-cyan uppercase font-semibold">
-                    {project.subtitle}
-                  </span>
-                  <h3 className="text-xl font-bold text-white font-sora tracking-tight mt-0.5">
-                    {project.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-xs text-slate-400 font-sans leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Key Features Accordion/List */}
-                <div className="space-y-1 py-1">
-                  <span className="text-[9px] font-mono tracking-wider text-slate-500 uppercase">Key Innovations:</span>
-                  <ul className="text-[10px] text-slate-300 font-sans space-y-1 list-disc list-inside">
-                    {project.features.slice(0, 3).map((f, i) => (
-                      <li key={i} className="truncate">{f}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Tech Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-2">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-mono text-slate-300"
-                    >
-                      {t}
+                  {/* Subtitle & Title */}
+                  <div>
+                    <span className="text-[10px] font-mono tracking-widest text-accent-cyan uppercase font-semibold">
+                      {project.subtitle}
                     </span>
-                  ))}
-                </div>
-              </div>
+                    <h3 className="text-xl font-bold text-white font-sora tracking-tight mt-0.5">
+                      {project.title}
+                    </h3>
+                  </div>
 
-              {/* Action Buttons */}
-              <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5 gap-2">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2 rounded-xl glassmorphism text-slate-400 hover:text-white text-[10px] font-mono tracking-wider flex items-center justify-center gap-1.5 transition-colors"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" /> CODE
-                </a>
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-accent-indigo to-accent-purple text-white text-[10px] font-mono tracking-wider flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" /> DEMO
-                </a>
-              </div>
-            </motion.div>
+                  {/* Description */}
+                  <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Key Features Accordion/List */}
+                  <div className="space-y-1 py-1">
+                    <span className="text-[9px] font-mono tracking-wider text-slate-500 uppercase">Key Innovations:</span>
+                    <ul className="text-[10px] text-slate-300 font-sans space-y-1 list-disc list-inside">
+                      {project.features.slice(0, 3).map((f, i) => (
+                        <li key={i} className="truncate">{f}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Tech Chips */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-mono text-slate-300"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5 gap-2">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-2 rounded-xl glassmorphism text-slate-400 hover:text-white text-[10px] font-mono tracking-wider flex items-center justify-center gap-1.5 transition-colors"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" /> CODE
+                  </a>
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-2 rounded-xl bg-gradient-to-r from-accent-indigo to-accent-purple text-white text-[10px] font-mono tracking-wider flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" /> DEMO
+                  </a>
+                </div>
+              </motion.div>
+            </GlowingBorder>
           ))}
         </div>
       </div>

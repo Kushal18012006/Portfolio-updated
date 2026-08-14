@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Code2, Laptop, Cloud, BrainCircuit } from "lucide-react";
 import RadialOrbitalTimeline, { TimelineItem } from "@/components/ui/radial-orbital-timeline";
+import GlowingBorder from "@/components/ui/glowing-border";
 
 const simulationsData: TimelineItem[] = [
   {
@@ -86,9 +87,11 @@ export default function Experience() {
         </div>
 
         {/* Interactive Radial Orbital Timeline */}
-        <div className="w-full relative">
-          <RadialOrbitalTimeline items={simulationsData} />
-        </div>
+        <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
+          <div className="w-full relative glassmorphism rounded-3xl p-4 md:p-6 border border-white/5">
+            <RadialOrbitalTimeline items={simulationsData} />
+          </div>
+        </GlowingBorder>
       </div>
     </section>
   );

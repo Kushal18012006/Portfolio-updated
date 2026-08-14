@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Download, Send, CheckCircle2, AlertCircle } from "lucide-react";
+import GlowingBorder from "@/components/ui/glowing-border";
 
 const GithubIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -138,198 +139,181 @@ export default function Contact() {
           <div className="w-12 h-[2px] bg-gradient-to-r from-accent-purple to-accent-cyan mx-auto mt-4" />
         </div>
 
-        {/* Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
-          {/* Left Info Panel */}
-          <div className="lg:col-span-5 space-y-6">
-            <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">
-              Let's build something beautiful together.
-            </h3>
-            <p className="text-sm text-slate-400 font-sans leading-relaxed">
-              If you are looking for a dedicated software engineer, or simply want to connect, feel free to drop a message!
-            </p>
+        {/* Layout wrapped with GlowingBorder */}
+        <GlowingBorder borderRadius="rounded-3xl" activeHover={false}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto glassmorphism p-8 md:p-10 rounded-3xl border border-white/5">
+            {/* Left Info Panel */}
+            <div className="lg:col-span-5 space-y-6">
+              <h3 className="text-xl md:text-2xl font-bold font-sora text-slate-200">
+                Let's build something beautiful together.
+              </h3>
+              <p className="text-sm text-slate-400 font-sans leading-relaxed">
+                If you are looking for a dedicated software engineer, or simply want to connect, feel free to drop a message!
+              </p>
 
-            {/* Info Cards */}
-            <div className="space-y-3 pt-2">
-              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
-                  <Mail className="w-5 h-5" />
+              {/* Info Cards */}
+              <div className="space-y-3 pt-2">
+                <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                  <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Email Me</div>
+                    <a href="mailto:kushal.tripathi2006@gmail.com" className="text-xs font-bold text-white hover:text-accent-cyan font-mono transition-colors">
+                      kushal.tripathi2006@gmail.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Email Me</div>
-                  <a href="mailto:kushal.tripathi2006@gmail.com" className="text-xs font-bold text-white hover:text-accent-cyan font-mono transition-colors">
-                    kushal.tripathi2006@gmail.com
-                  </a>
-                </div>
-              </div>
 
-              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Location</div>
-                  <div className="text-xs font-bold text-white font-mono">
-                    Mathura, Uttar Pradesh, India
+                <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
+                  <div className="p-3 rounded-xl bg-slate-900 text-accent-purple border border-white/10">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Location</div>
+                    <div className="text-xs font-bold text-white font-mono">India</div>
                   </div>
                 </div>
               </div>
 
-              <div className="glassmorphism p-4 rounded-2xl flex items-center gap-4 border border-white/5">
-                <div className="p-3 rounded-xl bg-slate-900 text-accent-cyan border border-white/10">
-                  <Download className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Qualifications</div>
+              {/* Social Connect & Resume download */}
+              <div className="pt-4 space-y-3">
+                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">Social Links</div>
+                <div className="flex gap-3">
                   <a
-                    href="/assets/resume.pdf"
-                    download="Kushal_Tripathi_Resume.pdf"
-                    className="text-xs font-bold text-white hover:text-accent-cyan font-mono transition-colors flex items-center gap-1.5"
+                    href="https://github.com/Kushal18012006"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-cyan transition-colors"
+                    aria-label="GitHub Profile"
                   >
-                    Download Resume PDF
+                    <GithubIcon className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-xl glassmorphism text-slate-400 hover:text-white hover:border-accent-purple transition-colors"
+                    aria-label="LinkedIn Profile"
+                  >
+                    <LinkedinIcon className="w-5 h-5" />
                   </a>
                 </div>
-              </div>
-            </div>
 
-            {/* Socials row */}
-            <div className="flex gap-3 pt-2">
-              <a
-                href="https://github.com/Kushal18012006"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 rounded-xl glassmorphism text-slate-400 hover:text-white flex items-center justify-center gap-2 text-xs font-mono tracking-wider transition-colors"
-              >
-                <GithubIcon className="w-4 h-4" /> GITHUB
-              </a>
-              <a
-                href="https://www.linkedin.com/in/kushal-tripathi-56838232b/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 rounded-xl glassmorphism text-slate-400 hover:text-white flex items-center justify-center gap-2 text-xs font-mono tracking-wider transition-colors"
-              >
-                <LinkedinIcon className="w-4 h-4" /> LINKEDIN
-              </a>
-            </div>
-          </div>
-
-          {/* Right Panel: Interactive Form */}
-          <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="glassmorphism p-8 rounded-3xl border border-white/5 space-y-5 relative overflow-hidden">
-              <div className="absolute inset-0 grid-overlay opacity-10 pointer-events-none" />
-              
-              {/* Header */}
-              <h3 className="text-lg font-bold font-sora text-white pb-3 border-b border-white/5">
-                Send Message
-              </h3>
-
-              {/* Name */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  className="w-full bg-slate-950/70 border border-white/10 rounded-xl px-4 py-3 text-xs font-sans text-white placeholder-slate-600 focus:outline-none focus:border-accent-cyan transition-colors"
-                />
-                {errors.name && <span className="text-[10px] text-rose-500 font-mono flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.name}</span>}
-              </div>
-
-              {/* Email */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  className="w-full bg-slate-950/70 border border-white/10 rounded-xl px-4 py-3 text-xs font-sans text-white placeholder-slate-600 focus:outline-none focus:border-accent-cyan transition-colors"
-                />
-                {errors.email && <span className="text-[10px] text-rose-500 font-mono flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</span>}
-              </div>
-
-              {/* Subject */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Collaboration Request"
-                  className="w-full bg-slate-950/70 border border-white/10 rounded-xl px-4 py-3 text-xs font-sans text-white placeholder-slate-600 focus:outline-none focus:border-accent-cyan transition-colors"
-                />
-                {errors.subject && <span className="text-[10px] text-rose-500 font-mono flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.subject}</span>}
-              </div>
-
-              {/* Message */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Hi Kushal, I would like to discuss..."
-                  rows={4}
-                  className="w-full bg-slate-950/70 border border-white/10 rounded-xl px-4 py-3 text-xs font-sans text-white placeholder-slate-600 focus:outline-none focus:border-accent-cyan transition-colors resize-none"
-                />
-                {errors.message && <span className="text-[10px] text-rose-500 font-mono flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.message}</span>}
-              </div>
-
-              {/* Button & Feedback */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-3">
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-accent-indigo via-accent-purple to-accent-cyan text-white text-xs font-mono tracking-widest font-semibold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shrink-0"
+                <a
+                  href="/assets/resume.pdf"
+                  download="Kushal_Tripathi_Resume.pdf"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-accent-cyan text-xs font-mono text-slate-300 hover:text-white transition-colors mt-2"
                 >
-                  {status === "sending" ? (
-                    <>SENDING...</>
-                  ) : (
-                    <>
-                      SEND MESSAGE <Send className="w-3.5 h-3.5" />
-                    </>
-                  )}
-                </button>
-
-                {/* Form Submit Feedback Animations */}
-                <AnimatePresence>
-                  {status === "success" && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      className="text-xs font-mono text-emerald-400 flex items-center gap-1.5"
-                    >
-                      <CheckCircle2 className="w-4 h-4 shrink-0" /> MESSAGE SENT SUCCESSFULLY!
-                    </motion.div>
-                  )}
-                  {status === "error" && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      className="text-xs font-mono text-rose-500 flex items-center gap-1.5"
-                    >
-                      <AlertCircle className="w-4 h-4 shrink-0" /> ERROR SENDING MESSAGE.
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  <Download className="w-4 h-4 text-accent-cyan" /> DOWNLOAD RESUME
+                </a>
               </div>
-            </form>
+            </div>
+
+            {/* Right Contact Form */}
+            <div className="lg:col-span-7">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Name Input */}
+                  <div className="space-y-1">
+                    <label htmlFor="name" className="text-xs font-mono text-slate-400 uppercase">Your Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      required
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-900/60 border border-white/10 focus:border-accent-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-slate-600"
+                    />
+                  </div>
+
+                  {/* Email Input */}
+                  <div className="space-y-1">
+                    <label htmlFor="email" className="text-xs font-mono text-slate-400 uppercase">Your Email</label>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-900/60 border border-white/10 focus:border-accent-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-slate-600"
+                    />
+                  </div>
+                </div>
+
+                {/* Subject Input */}
+                <div className="space-y-1">
+                  <label htmlFor="subject" className="text-xs font-mono text-slate-400 uppercase">Subject</label>
+                  <input
+                    id="subject"
+                    type="text"
+                    required
+                    placeholder="Project Inquiry / Feedback"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-slate-900/60 border border-white/10 focus:border-accent-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-slate-600"
+                  />
+                </div>
+
+                {/* Message Input */}
+                <div className="space-y-1">
+                  <label htmlFor="message" className="text-xs font-mono text-slate-400 uppercase">Message</label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    placeholder="Hello Kushal, I'd like to discuss a project..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-slate-900/60 border border-white/10 focus:border-accent-cyan focus:outline-none text-sm text-white font-sans transition-colors placeholder:text-slate-600 resize-none"
+                  />
+                </div>
+
+                {/* Submit Button & Status */}
+                <div className="flex items-center gap-4 pt-2">
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-indigo via-accent-purple to-accent-cyan text-white text-xs font-mono tracking-wider font-bold flex items-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer shadow-[0_0_20px_rgba(124,58,237,0.3)]"
+                  >
+                    {status === "sending" ? (
+                      <span>SENDING...</span>
+                    ) : (
+                      <>
+                        <span>SEND MESSAGE</span> <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+
+                  <AnimatePresence>
+                    {status === "success" && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="text-xs font-mono text-emerald-400 flex items-center gap-1.5"
+                      >
+                        <CheckCircle2 className="w-4 h-4 shrink-0" /> MESSAGE SENT SUCCESSFULLY!
+                      </motion.div>
+                    )}
+                    {status === "error" && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="text-xs font-mono text-rose-500 flex items-center gap-1.5"
+                      >
+                        <AlertCircle className="w-4 h-4 shrink-0" /> ERROR SENDING MESSAGE.
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
+        </GlowingBorder>
       </div>
     </section>
   );
