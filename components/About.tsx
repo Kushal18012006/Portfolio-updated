@@ -106,7 +106,7 @@ export default function About() {
               </h3>
               
               {/* Timeline List */}
-              <div className="relative pl-6 border-l border-white/10 space-y-8">
+              <div className="relative pl-8 ml-6 border-l border-white/10 space-y-8">
                 {timelineData.map((item, index) => (
                   <motion.div
                     key={index}
@@ -116,8 +116,8 @@ export default function About() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="relative space-y-2"
                   >
-                    {/* Timeline Dot Icon */}
-                    <div className="absolute -left-[38px] top-0 p-1.5 rounded-full bg-[#050816] border border-accent-cyan text-accent-cyan shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                    {/* Timeline Dot Icon (Centered on timeline line, fully inside section) */}
+                    <div className="absolute -left-[17px] top-0 p-1.5 rounded-full bg-[#050816] border border-accent-cyan text-accent-cyan shadow-[0_0_10px_rgba(6,182,212,0.3)]">
                       {item.icon}
                     </div>
                     <h4 className="text-lg font-semibold text-white font-sora">
