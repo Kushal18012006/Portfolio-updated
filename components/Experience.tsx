@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
+import { Calendar, Briefcase } from "lucide-react";
 
 interface Simulation {
   company: string;
@@ -90,7 +90,7 @@ export default function Experience() {
         </div>
 
         {/* Timeline Container */}
-        <div className="relative max-w-4xl mx-auto pl-6 md:pl-0">
+        <div className="relative max-w-3xl mx-auto pl-6 md:pl-0">
           {/* Vertical line for timelines (Centered on md screens) */}
           <div className="absolute left-[29px] md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
 
@@ -101,10 +101,10 @@ export default function Experience() {
               return (
                 <div
                   key={sim.company}
-                  className="relative flex flex-col md:flex-row items-center justify-between w-full"
+                  className="relative flex flex-col md:flex-row md:justify-between items-start md:items-center w-full"
                 >
                   {/* Glowing Company Dot (Centered on timeline) */}
-                  <div className="absolute left-[3px] md:left-1/2 top-1 md:top-1/2 p-1 rounded-full bg-[#050816] z-20 -translate-x-1/2 md:-translate-y-1/2">
+                  <div className="absolute left-[3px] md:left-1/2 top-1 md:top-auto p-1 rounded-full bg-[#050816] z-10 -translate-x-1/2">
                     <div
                       className={`w-10 h-10 rounded-full bg-gradient-to-br ${sim.logoBg} ${sim.shadow} flex items-center justify-center text-white font-bold font-sora text-sm border border-white/20`}
                     >
@@ -112,114 +112,73 @@ export default function Experience() {
                     </div>
                   </div>
 
-                  {/* Left Side Container */}
-                  <div className="w-full md:w-[42%] order-2 md:order-1">
-                    {isEven ? (
-                      /* Desktop Date indicator on Left (for Right cards) */
-                      <div className="hidden md:block pr-10 text-right space-y-1 font-mono text-xs">
-                        <div className="flex items-center gap-1.5 justify-end text-slate-200 font-semibold">
+                  {/* Left Column (Date indicator for Even items, or Spacer for Odd items) */}
+                  <div className={`hidden md:block w-[45%] ${isEven ? "order-1 text-right" : "order-2"}`}>
+                    {isEven && (
+                      <div className="pr-8 space-y-1 font-mono text-xs text-slate-400">
+                        <div className="flex items-center gap-1.5 justify-end">
                           <Calendar className="w-3.5 h-3.5 text-accent-cyan" />
                           <span>{sim.duration}</span>
                         </div>
-                        <div className="text-accent-cyan font-bold uppercase tracking-wider text-[11px]">
-                          Job Simulation
-                        </div>
-                      </div>
-                    ) : (
-                      /* Left Card */
-                      <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.5, type: "spring", stiffness: 90 }}
-                        className="w-full p-6 rounded-2xl glassmorphism border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all duration-300 relative group cursor-pointer"
-                      >
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-accent-indigo/5 to-accent-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                        {/* Mobile Duration indicator */}
-                        <div className="flex md:hidden items-center justify-between gap-2 font-mono text-[10px] text-slate-400 mb-2">
-                          <span className="text-accent-cyan font-bold uppercase tracking-wider">
-                            Job Simulation
-                          </span>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-accent-cyan" />
-                            <span>{sim.duration}</span>
-                          </div>
-                        </div>
-
-                        <h3 className="text-lg font-bold text-white font-sora tracking-tight leading-snug">
-                          {sim.role}
-                        </h3>
-                        <h4 className="text-sm font-semibold text-accent-cyan font-mono tracking-wide mt-1">
-                          {sim.company}
-                        </h4>
-
-                        <ul className="mt-4 space-y-2 text-xs text-slate-300 font-sans leading-relaxed list-disc list-inside">
-                          {sim.points.map((pt, i) => (
-                            <li key={i} className="pl-1">
-                              <span className="relative -left-1">{pt}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </div>
-
-                  {/* Center Spacer */}
-                  <div className="hidden md:block w-[16%]" />
-
-                  {/* Right Side Container */}
-                  <div className="w-full md:w-[42%] order-3 md:order-3">
-                    {isEven ? (
-                      /* Right Card */
-                      <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.5, type: "spring", stiffness: 90 }}
-                        className="w-full p-6 rounded-2xl glassmorphism border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all duration-300 relative group cursor-pointer"
-                      >
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-accent-indigo/5 to-accent-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                        {/* Mobile Duration indicator */}
-                        <div className="flex md:hidden items-center justify-between gap-2 font-mono text-[10px] text-slate-400 mb-2">
-                          <span className="text-accent-cyan font-bold uppercase tracking-wider">
-                            Job Simulation
-                          </span>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-accent-cyan" />
-                            <span>{sim.duration}</span>
-                          </div>
-                        </div>
-
-                        <h3 className="text-lg font-bold text-white font-sora tracking-tight leading-snug">
-                          {sim.role}
-                        </h3>
-                        <h4 className="text-sm font-semibold text-accent-cyan font-mono tracking-wide mt-1">
-                          {sim.company}
-                        </h4>
-
-                        <ul className="mt-4 space-y-2 text-xs text-slate-300 font-sans leading-relaxed list-disc list-inside">
-                          {sim.points.map((pt, i) => (
-                            <li key={i} className="pl-1">
-                              <span className="relative -left-1">{pt}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    ) : (
-                      /* Desktop Date indicator on Right (for Left cards) */
-                      <div className="hidden md:block pl-10 text-left space-y-1 font-mono text-xs">
-                        <div className="flex items-center gap-1.5 text-slate-200 font-semibold">
-                          <Calendar className="w-3.5 h-3.5 text-accent-cyan" />
-                          <span>{sim.duration}</span>
-                        </div>
-                        <div className="text-accent-cyan font-bold uppercase tracking-wider text-[11px]">
-                          Job Simulation
+                        <div className="text-accent-cyan font-bold uppercase tracking-wider">
+                          Simulation
                         </div>
                       </div>
                     )}
                   </div>
+
+                  {/* Spacer for center dot */}
+                  <div className="hidden md:block w-[10%] order-2" />
+
+                  {/* Card Container (Right/Left placement based on order) */}
+                  <motion.div
+                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
+                    className={`w-full md:w-[45%] p-6 rounded-2xl glassmorphism border border-white/5 hover:border-white/10 hover:bg-white/[0.03] transition-all duration-300 relative group cursor-pointer ${
+                      isEven ? "order-3 md:order-2" : "order-1"
+                    }`}
+                  >
+                    {/* Hover internal glow */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-accent-indigo/5 to-accent-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    {/* Mobile Duration indicator */}
+                    <div className="flex md:hidden items-center gap-1.5 font-mono text-[10px] text-slate-400 mb-2">
+                      <Calendar className="w-3.5 h-3.5 text-accent-cyan" />
+                      <span>{sim.duration}</span>
+                    </div>
+
+                    <h3 className="text-lg font-bold text-white font-sora tracking-tight leading-snug">
+                      {sim.role}
+                    </h3>
+                    <h4 className="text-sm font-semibold text-accent-cyan font-mono tracking-wide mt-1">
+                      {sim.company}
+                    </h4>
+
+                    <ul className="mt-4 space-y-2 text-xs text-slate-400 font-sans leading-relaxed list-disc list-inside">
+                      {sim.points.map((pt, i) => (
+                        <li key={i} className="pl-1 text-slate-300">
+                          <span className="relative -left-1">{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+
+                  {/* Right Column for Odd items (Date & Simulation label with pl-8 offset) */}
+                  {!isEven && (
+                    <div className="hidden md:block w-[45%] order-3 text-left">
+                      <div className="pl-8 space-y-1 font-mono text-xs text-slate-400">
+                        <div className="flex items-center gap-1.5 justify-start">
+                          <Calendar className="w-3.5 h-3.5 text-accent-cyan" />
+                          <span>{sim.duration}</span>
+                        </div>
+                        <div className="text-accent-cyan font-bold uppercase tracking-wider">
+                          Simulation
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
